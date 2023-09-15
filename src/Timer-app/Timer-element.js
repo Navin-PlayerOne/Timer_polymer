@@ -20,6 +20,21 @@ class TimerElement extends PolymerElement{
             seconds:{
                 type:String,
                 value:'00',
+            },
+            isRunning:{
+                type:Boolean,
+                value:false
+            },
+            isFirst:{
+                type:Boolean,
+                value:true
+            },
+            interval:{
+                type:Number
+            },
+            isPaused:{
+                type:Boolean,
+                value:false
             }
         }
     }
@@ -66,24 +81,79 @@ class TimerElement extends PolymerElement{
                     <h1>:</h1>
                     <h1 class="seconds">[[seconds]]</h1>
                 </div>
-                <paper-button raised on-tap="start">Start</paper-button>
+                
+                <template is="dom-if" if="{{isFirst}}">
+                    <paper-button raised on-tap="start">Start</paper-button>
+                </template>
+
+                <template is="dom-if" if="{{!isFirst}}">
+
+                    <template is="dom-if" if="{{isPaused}}">
+                        <paper-button raised on-tap="start">Resume</paper-button>
+                    </template>
+
+                    <template is="dom-if" if="{{!isPaused}}">
+                        <paper-button raised on-tap="pause">Pause</paper-button>
+                    </template>
+
+                </template>
+
+
                 <paper-button raised on-tap="stop">Stop</paper-button>
+
                 <paper-button raised on-tap="reset">Reset</paper-button>
             </div>
             </paper-card>
         `;
     }
+
     
 
     start(){
         console.log('started');
+        this.isRunning = true;
+        this.isPaused = false;
+        this.isFirst = false;
+        this.interval = setInterval(() => {
+            this.stopWatch()
+        }, 1000);
+
+        if(!this.isFirst){
+            this.seconds = "00"
+            this.minutes = "00"
+            this.hour = "00"
+        }
+    }
+    pause(){
+        console.log('paused');
+        this.isPaused = true;
+        clearInterval(this.interval)
     }
     stop(){
         console.log('stoped');
+        this.isFirst = true
+        clearInterval(this.interval)
+        this.isRunning = false;
     }
     reset(){
         console.log('reset');
+        location.reload()
     }
+
+    stopWatch(){
+
+        this.seconds = (parseInt(this.seconds) + 1).toString().padStart(2,'0');
+        if(this.seconds>59){
+            this.seconds = "00"
+            this.minutes =  (parseInt(this.minutes) + 1).toString().padStart(2,'0');
+        }
+
+        if(this.minutes>59){
+            this.minutes = "00"
+            this.hour =  (parseInt(this.hour) + 1).toString().padStart(2,'0');
+        }
+    }
+
 
 }
 
