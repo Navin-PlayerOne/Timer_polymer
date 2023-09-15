@@ -89,7 +89,7 @@ class TimerElement extends PolymerElement{
                 <template is="dom-if" if="{{!isFirst}}">
 
                     <template is="dom-if" if="{{isPaused}}">
-                        <paper-button raised on-tap="start">Resume</paper-button>
+                        <paper-button raised on-tap="resume">Resume</paper-button>
                     </template>
 
                     <template is="dom-if" if="{{!isPaused}}">
@@ -118,11 +118,18 @@ class TimerElement extends PolymerElement{
             this.stopWatch()
         }, 1000);
 
+        //for starting from fresh when stop button is clicked
         if(!this.isFirst){
             this.seconds = "00"
             this.minutes = "00"
             this.hour = "00"
         }
+    }
+    resume(){
+        this.interval = setInterval(() => {
+            this.stopWatch()
+        }, 1000);
+        this.isPaused = false;
     }
     pause(){
         console.log('paused');
