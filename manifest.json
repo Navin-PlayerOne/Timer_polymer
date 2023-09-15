@@ -1,0 +1,7 @@
+{
+  "name": "Timer",
+  "short_name": "Timer",
+  "description": "A simple stopwatch app",
+  "start_url": "/",
+  "display": "standalone"
+}
