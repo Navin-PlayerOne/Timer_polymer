@@ -64,6 +64,36 @@ class TimerElement extends PolymerElement{
                     display: flex;
                     justify-content: space-around;
                 }
+                .start {
+                background-color: #4CAF50; 
+                color: #ffffff; 
+                }
+
+                
+                .pause {
+                background-color: #FFC107; 
+                color: #333333; 
+                }
+
+                
+                .stop {
+                background-color: #F44336;
+                color: #ffffff; 
+                }
+
+                
+                .reset {
+                background-color: #2196F3; 
+                color: #ffffff; 
+                }
+
+               
+                .resume {
+                background-color: #FF5722; 
+                color: #ffffff; 
+                }
+
+
             </style>
             <paper-card>
             <div class="card-content name">
@@ -83,25 +113,25 @@ class TimerElement extends PolymerElement{
                 </div>
                 
                 <template is="dom-if" if="{{isFirst}}">
-                    <paper-button raised on-tap="start">Start</paper-button>
+                    <paper-button class="start" raised on-tap="start">Start</paper-button>
                 </template>
 
                 <template is="dom-if" if="{{!isFirst}}">
 
                     <template is="dom-if" if="{{isPaused}}">
-                        <paper-button raised on-tap="resume">Resume</paper-button>
+                        <paper-button class="resume" raised on-tap="resume">Resume</paper-button>
                     </template>
 
                     <template is="dom-if" if="{{!isPaused}}">
-                        <paper-button raised on-tap="pause">Pause</paper-button>
+                        <paper-button class="pause" raised on-tap="pause">Pause</paper-button>
                     </template>
 
                 </template>
 
 
-                <paper-button raised on-tap="stop">Stop</paper-button>
+                <paper-button class="stop" raised on-tap="stop">Stop</paper-button>
 
-                <paper-button raised on-tap="reset">Reset</paper-button>
+                <paper-button class="reset" raised on-tap="reset">Reset</paper-button>
             </div>
             </paper-card>
         `;
